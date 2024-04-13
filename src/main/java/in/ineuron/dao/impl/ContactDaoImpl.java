@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.ineuron.dao.ContactDao;
-import in.ineuron.dao.factory.ConnectionFactory;
+import in.ineuron.utils.JdbcUtils;
 
 public class ContactDaoImpl implements ContactDao{
 
@@ -14,7 +14,7 @@ public class ContactDaoImpl implements ContactDao{
 		String query = "INSERT INTO contact_messages(name, email, subject, message) VALUES(?, ?, ?, ?)";
 		
 		try {
-			Connection connection = ConnectionFactory.getConnection();
+			Connection connection = JdbcUtils.getConnection();
 			
 			if(connection!=null) {
 				PreparedStatement stm = connection.prepareStatement(query);

@@ -1,11 +1,11 @@
 package in.ineuron.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class JdbcUtils {
 	
@@ -25,9 +25,25 @@ public class JdbcUtils {
 		}
 	}
 
-	public static Connection getJdbcConnection() throws SQLException, IOException {
+	public static Connection getConnection() throws SQLException, IOException {
 
 		return DriverManager.getConnection(url, username, password);
 	}
+	
+	public static void closeResources(Connection connection, PreparedStatement stm, ResultSet resultSet) {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
